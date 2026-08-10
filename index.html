@@ -53,9 +53,40 @@
   a{color:inherit;}
   button{font:inherit; color:inherit; background:none; border:none; cursor:pointer;}
 
-  /* ---------- Reveal on scroll ---------- */
-  .reveal{ opacity:0; transform:translateY(22px); filter:blur(3px); transition:opacity .8s ease, transform .8s ease, filter .8s ease; }
-  .reveal.is-in{ opacity:1; transform:translateY(0); filter:blur(0); }
+  /* ---------- Reveal on scroll: aperture-iris effect ---------- */
+  .reveal{
+    opacity:0; transform:translateY(20px); filter:blur(2px);
+    clip-path: inset(6% 6% 6% 6%);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease, clip-path .7s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.is-in{ opacity:1; transform:translateY(0); filter:blur(0); clip-path: inset(0% 0% 0% 0%); }
+
+  /* ---------- Custom cursor: viewfinder ---------- */
+  @media (hover:hover) and (pointer:fine){
+    body.custom-cursor, body.custom-cursor a, body.custom-cursor button{ cursor:none; }
+  }
+  .cursor-dot{
+    position:fixed; top:0; left:0; width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
+    background:var(--accent-bright); border-radius:50%; pointer-events:none; z-index:400;
+    opacity:0; transition:opacity .2s;
+  }
+  .cursor-ring{
+    position:fixed; top:0; left:0; width:44px; height:44px; margin:-22px 0 0 -22px;
+    pointer-events:none; z-index:399; opacity:0;
+    transition:width .25s cubic-bezier(.2,.7,.2,1), height .25s cubic-bezier(.2,.7,.2,1), margin .25s cubic-bezier(.2,.7,.2,1), opacity .2s;
+  }
+  .cr-bracket{ position:absolute; width:9px; height:9px; border:1.5px solid var(--accent-bright); opacity:0.8; }
+  .cr-tl{ top:0; left:0; border-right:none; border-bottom:none; }
+  .cr-tr{ top:0; right:0; border-left:none; border-bottom:none; }
+  .cr-bl{ bottom:0; left:0; border-right:none; border-top:none; }
+  .cr-br{ bottom:0; right:0; border-left:none; border-top:none; }
+  .cursor-ring.hover{ width:76px; height:76px; margin:-38px 0 0 -38px; }
+  .cr-label{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    font-family:'IBM Plex Mono',monospace; font-size:0.55rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--accent-bright); opacity:0; white-space:nowrap; transition:opacity .2s;
+  }
+  .cursor-ring.hover .cr-label{ opacity:1; }
 
   /* ---------- Sprocket strip ---------- */
   .sprockets{ display:flex; justify-content:space-between; padding:0 6px; background:var(--black-2); }
@@ -99,7 +130,7 @@
   }
 
   /* ---------- Hero ---------- */
-  .hero{ padding:calc(var(--header-h) + 46px) 5vw 50px; max-width:1400px; margin:0 auto; }
+  .hero{ padding:calc(var(--header-h) + 46px) 5vw 50px; max-width:1400px; margin:0 auto; perspective:1400px; }
   .hero-top{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:26px; flex-wrap:wrap; gap:16px; }
   .hero-eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--steel); letter-spacing:0.14em; text-transform:uppercase; }
   .hero h1{ font-size:clamp(2.6rem, 8.5vw, 7.5rem); max-width:14ch; }
@@ -121,6 +152,7 @@
   .frame{ position:relative; aspect-ratio:4/5; overflow:hidden; border-right:1px solid rgba(238,240,242,0.08); border-bottom:1px solid rgba(238,240,242,0.08); }
   .frame .tag{ position:absolute; top:8px; left:8px; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; color:rgba(238,240,242,0.55); letter-spacing:0.05em; z-index:3; }
   .frame .ph, .ph-block{ position:absolute; inset:0; filter:saturate(0.55) contrast(1.05); transition:transform 1.4s cubic-bezier(.2,.7,.2,1), filter .6s; }
+  img.ph-block{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; background:var(--black-2); }
   .frame:hover .ph{ transform:scale(1.08); filter:saturate(0.85) contrast(1.1); }
 
   .ph-1{ background: radial-gradient(120% 90% at 30% 20%, rgba(150,158,170,0.32), transparent 60%), linear-gradient(160deg, #3c4046 0%, #1b1e22 60%, #0d0f11 100%);}
@@ -308,11 +340,7 @@
   <section class="hero">
     <div class="hero-top">
       <div class="hero-eyebrow" id="heroEyebrow">Photography &amp; Film — Est. Dhaka, working worldwide</div>
-      <div class="hero-meta" id="heroMeta">
-        ROLL 07 — 36 EXP<br>
-        f/2.8 · 1/125 · ISO 400<br>
-        DEVELOPED ON REQUEST
-      </div>
+      <div class="hero-meta" id="heroMeta">ROLL 07 — 36 EXP</div>
     </div>
     <h1 class="display"><span id="heroHeadingL1">We shoot what</span><br><span id="heroHeadingL2">doesn't fade.</span></h1>
     <p class="hero-sub" id="heroSubtext">A boutique photo &amp; video studio for brands, weddings, and directors who'd rather show than tell. Every frame reviewed by hand before it leaves the lab.</p>
@@ -451,9 +479,7 @@
   <section>
     <div class="slate reveal">
       <div class="slate-top">
-        <span id="slateProd">PROD: MOMENTO MÉMOIRE</span>
-        <span id="slateScene">SCENE: 04</span>
-        <span id="slateTake">TAKE: 01 — KEEPER</span>
+        <span id="slateProd">MOMENTO MÉMOIRE — CLIENT NOTE</span>
       </div>
       <blockquote id="testimonialQuote">&ldquo;They showed up, watched the room for twenty minutes before touching a camera, and the footage still looks like us &mdash; just clearer.&rdquo;</blockquote>
       <cite id="testimonialCite">— Creative Director, Meridian Hotel Group</cite>
@@ -492,7 +518,6 @@
     </div>
     <div class="footer-bottom">
       <span id="footerCopyright">&copy; 2026 Momento Mémoire. All frames reserved.</span>
-      <span id="footerRollTag">ROLL 07 / 36 &mdash; END OF REEL</span>
     </div>
   </div>
 </footer>
@@ -526,6 +551,16 @@
   </div>
 </div>
 
+<!-- CUSTOM CURSOR: viewfinder -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing">
+  <span class="cr-bracket cr-tl"></span>
+  <span class="cr-bracket cr-tr"></span>
+  <span class="cr-bracket cr-bl"></span>
+  <span class="cr-bracket cr-br"></span>
+  <span class="cr-label" id="cursorLabel"></span>
+</div>
+
 <script>
   // ---------- Mobile menu ----------
   const hamburger = document.getElementById('hamburger');
@@ -547,6 +582,64 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+  // ---------- Custom cursor: camera viewfinder ----------
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (finePointer){
+    document.body.classList.add('custom-cursor');
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    const label = document.getElementById('cursorLabel');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    let seen = false;
+
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px, ${my}px)`;
+      if (!seen){ seen = true; dot.style.opacity = 1; ring.style.opacity = 1; rx = mx; ry = my; }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
+
+    (function loop(){
+      if (!document.hidden){
+        const ease = reducedMotion ? 1 : 0.2;
+        rx += (mx - rx) * ease;
+        ry += (my - ry) * ease;
+        ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      }
+      requestAnimationFrame(loop);
+    })();
+
+    const hoverSel = 'a, button, .reel, .album, .frame, .chip';
+    document.addEventListener('mouseover', (e) => {
+      const t = e.target.closest(hoverSel);
+      if (!t) return;
+      ring.classList.add('hover');
+      if (t.classList.contains('reel')) label.textContent = 'Play';
+      else if (t.classList.contains('album')) label.textContent = 'View';
+      else label.textContent = '';
+    });
+    document.addEventListener('mouseout', (e) => {
+      const from = e.target.closest(hoverSel);
+      const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(hoverSel) : null;
+      if (from && !to){ ring.classList.remove('hover'); label.textContent = ''; }
+    });
+
+    // ---------- Hero parallax (subtle 3D tilt on the contact sheet) ----------
+    const sheet = document.querySelector('.contact-sheet');
+    if (sheet && !reducedMotion){
+      sheet.style.transformStyle = 'preserve-3d';
+      sheet.style.transition = 'transform .4s ease-out';
+      window.addEventListener('mousemove', (e) => {
+        const relX = (e.clientX / window.innerWidth) - 0.5;
+        const relY = (e.clientY / window.innerHeight) - 0.5;
+        sheet.style.transform = `rotateX(${relY * -2.5}deg) rotateY(${relX * 2.5}deg)`;
+      }, { passive: true });
+    }
+  }
+
   // ---------- Netlify Identity: send invited users straight to the admin panel ----------
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on('init', user => {
@@ -567,15 +660,17 @@
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function slug(s){ return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
   function phDiv(index, imageUrl){
-    const div = document.createElement('div');
     if (imageUrl){
-      div.className = 'ph-block';
-      div.style.backgroundImage = `url("${imageUrl}")`;
-      div.style.backgroundSize = 'cover';
-      div.style.backgroundPosition = 'center';
-    } else {
-      div.className = 'ph-block ' + PH_CLASSES[index % PH_CLASSES.length];
+      const img = document.createElement('img');
+      img.className = 'ph-block ph-img';
+      img.src = imageUrl;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      return img;
     }
+    const div = document.createElement('div');
+    div.className = 'ph-block ' + PH_CLASSES[index % PH_CLASSES.length];
     return div;
   }
 
@@ -819,11 +914,6 @@
     const el = document.getElementById(id);
     if (el) el.textContent = value;
   }
-  function setHTML(id, value){
-    if (value == null || value === '') return;
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = value;
-  }
   function setLink(id, url, text){
     const el = document.getElementById(id);
     if (!el) return;
@@ -838,9 +928,7 @@
     setText('heroHeadingL1', h.heading_line1);
     setText('heroHeadingL2', h.heading_line2);
     setText('heroSubtext', h.subtext);
-    if (h.meta_line1 || h.meta_line2 || h.meta_line3){
-      setHTML('heroMeta', [h.meta_line1, h.meta_line2, h.meta_line3].filter(Boolean).join('<br>'));
-    }
+    setText('heroMeta', h.meta_line1);
 
     setText('reelsHeading', s.reels_heading);
     setText('reelsTag', s.reels_tag);
@@ -871,8 +959,6 @@
 
     const t = s.testimonial || {};
     setText('slateProd', t.slate_prod);
-    setText('slateScene', t.slate_scene);
-    setText('slateTake', t.slate_take);
     setText('testimonialQuote', t.quote);
     setText('testimonialCite', t.cite);
 
@@ -890,7 +976,6 @@
     setText('footerHours1', f.hours_line1);
     setText('footerHours2', f.hours_line2);
     setText('footerCopyright', f.copyright);
-    setText('footerRollTag', f.roll_tag);
   }).catch(() => {});
 </script>
 
