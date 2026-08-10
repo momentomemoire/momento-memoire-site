@@ -307,15 +307,15 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-top">
-      <div class="hero-eyebrow">Photography &amp; Film — Est. Dhaka, working worldwide</div>
-      <div class="hero-meta">
+      <div class="hero-eyebrow" id="heroEyebrow">Photography &amp; Film — Est. Dhaka, working worldwide</div>
+      <div class="hero-meta" id="heroMeta">
         ROLL 07 — 36 EXP<br>
         f/2.8 · 1/125 · ISO 400<br>
         DEVELOPED ON REQUEST
       </div>
     </div>
-    <h1 class="display">We shoot what<br>doesn't fade.</h1>
-    <p class="hero-sub">A boutique photo &amp; video studio for brands, weddings, and directors who'd rather show than tell. Every frame reviewed by hand before it leaves the lab.</p>
+    <h1 class="display"><span id="heroHeadingL1">We shoot what</span><br><span id="heroHeadingL2">doesn't fade.</span></h1>
+    <p class="hero-sub" id="heroSubtext">A boutique photo &amp; video studio for brands, weddings, and directors who'd rather show than tell. Every frame reviewed by hand before it leaves the lab.</p>
     <div class="hero-actions">
       <a class="btn-primary" href="#reels">Watch the reels</a>
       <a class="btn-ghost" href="#albums">Browse albums</a>
@@ -354,10 +354,10 @@
   <!-- REELS -->
   <section id="reels">
     <div class="section-head reveal">
-      <h2 class="display">Reels</h2>
-      <div class="section-num">04 FILMS</div>
+      <h2 class="display" id="reelsHeading">Reels</h2>
+      <div class="section-num" id="reelsTag">04 FILMS</div>
     </div>
-    <p class="section-lead reveal">Full films behind the stills. Tap any block to play &mdash; sound on.</p>
+    <p class="section-lead reveal" id="reelsLead">Full films behind the stills. Tap any block to play &mdash; sound on.</p>
     <div class="reels-grid" id="reelsGrid">
       <!-- Populated from content/reels.json — edit via /admin -->
     </div>
@@ -366,10 +366,10 @@
   <!-- ALBUMS -->
   <section id="albums">
     <div class="section-head reveal">
-      <h2 class="display">Albums</h2>
-      <div class="section-num">BY CATEGORY &amp; EVENT</div>
+      <h2 class="display" id="albumsHeading">Albums</h2>
+      <div class="section-num" id="albumsTag">BY CATEGORY &amp; EVENT</div>
     </div>
-    <p class="section-lead reveal">Every shoot filed like a roll of film &mdash; browse by category or find the exact event.</p>
+    <p class="section-lead reveal" id="albumsLead">Every shoot filed like a roll of film &mdash; browse by category or find the exact event.</p>
 
     <div class="chip-row reveal" id="chipRow">
       <button class="chip active" data-filter="all">All</button>
@@ -389,30 +389,30 @@
   <!-- SERVICES -->
   <section id="services">
     <div class="section-head reveal">
-      <h2 class="display">The Roll</h2>
-      <div class="section-num">03 DISCIPLINES</div>
+      <h2 class="display" id="servicesHeading">The Roll</h2>
+      <div class="section-num" id="servicesTag">03 DISCIPLINES</div>
     </div>
     <div class="roll reveal">
       <div class="roll-item">
         <div class="sprk"><span></span><span></span><span></span><span></span><span></span></div>
         <div class="roll-num">01</div>
-        <h3>Photography</h3>
-        <p>Editorial, product, and portrait work shot on location or in studio. Every set lit by hand, every frame culled by a human eye, not a preset.</p>
-        <div class="spec">DELIVERY — 5&ndash;10 BUSINESS DAYS</div>
+        <h3 id="svc1Title">Photography</h3>
+        <p id="svc1Desc">Editorial, product, and portrait work shot on location or in studio. Every set lit by hand, every frame culled by a human eye, not a preset.</p>
+        <div class="spec" id="svc1Spec">DELIVERY — 5&ndash;10 BUSINESS DAYS</div>
       </div>
       <div class="roll-item">
         <div class="sprk"><span></span><span></span><span></span><span></span><span></span></div>
         <div class="roll-num">02</div>
-        <h3>Videography</h3>
-        <p>Brand films, EPKs, and documentary shorts. We write, shoot, and cut — no hand-offs, no notes lost in translation between departments.</p>
-        <div class="spec">DELIVERY — 2&ndash;4 WEEKS</div>
+        <h3 id="svc2Title">Videography</h3>
+        <p id="svc2Desc">Brand films, EPKs, and documentary shorts. We write, shoot, and cut — no hand-offs, no notes lost in translation between departments.</p>
+        <div class="spec" id="svc2Spec">DELIVERY — 2&ndash;4 WEEKS</div>
       </div>
       <div class="roll-item">
         <div class="sprk"><span></span><span></span><span></span><span></span><span></span></div>
         <div class="roll-num">03</div>
-        <h3>Post &amp; Color</h3>
-        <p>Grading, retouching, and sound design done in-house, so the print matches what we saw through the viewfinder on set.</p>
-        <div class="spec">DELIVERY — SCOPED PER PROJECT</div>
+        <h3 id="svc3Title">Post &amp; Color</h3>
+        <p id="svc3Desc">Grading, retouching, and sound design done in-house, so the print matches what we saw through the viewfinder on set.</p>
+        <div class="spec" id="svc3Spec">DELIVERY — SCOPED PER PROJECT</div>
       </div>
     </div>
   </section>
@@ -420,29 +420,29 @@
   <!-- PROCESS -->
   <section id="process">
     <div class="section-head reveal">
-      <h2 class="display">One Exposure</h2>
-      <div class="section-num">SHOOT-DAY SEQUENCE</div>
+      <h2 class="display" id="processHeading">One Exposure</h2>
+      <div class="section-num" id="processTag">SHOOT-DAY SEQUENCE</div>
     </div>
     <div class="exposure-track reveal">
       <div class="exp-step">
-        <div class="fstop">f/16 — WIDE</div>
-        <h4>Concept</h4>
-        <p>A working call to understand the brief, the audience, and the one shot the whole project hinges on.</p>
+        <div class="fstop" id="proc1Fstop">f/16 — WIDE</div>
+        <h4 id="proc1Title">Concept</h4>
+        <p id="proc1Desc">A working call to understand the brief, the audience, and the one shot the whole project hinges on.</p>
       </div>
       <div class="exp-step">
-        <div class="fstop">f/8 — SCOUT</div>
-        <h4>Prep &amp; Scout</h4>
-        <p>Locations, casting, and a shot list tight enough to move fast on the day without losing the plan.</p>
+        <div class="fstop" id="proc2Fstop">f/8 — SCOUT</div>
+        <h4 id="proc2Title">Prep &amp; Scout</h4>
+        <p id="proc2Desc">Locations, casting, and a shot list tight enough to move fast on the day without losing the plan.</p>
       </div>
       <div class="exp-step">
-        <div class="fstop">f/2.8 — SHOOT</div>
-        <h4>Production</h4>
-        <p>A small crew, a quiet set, and a director who's watching the monitor, not the clock.</p>
+        <div class="fstop" id="proc3Fstop">f/2.8 — SHOOT</div>
+        <h4 id="proc3Title">Production</h4>
+        <p id="proc3Desc">A small crew, a quiet set, and a director who's watching the monitor, not the clock.</p>
       </div>
       <div class="exp-step">
-        <div class="fstop">f/1.4 — DEVELOP</div>
-        <h4>Edit &amp; Deliver</h4>
-        <p>Selects sent within 48 hours. Final cut, color, and files delivered on a schedule you signed off on.</p>
+        <div class="fstop" id="proc4Fstop">f/1.4 — DEVELOP</div>
+        <h4 id="proc4Title">Edit &amp; Deliver</h4>
+        <p id="proc4Desc">Selects sent within 48 hours. Final cut, color, and files delivered on a schedule you signed off on.</p>
       </div>
     </div>
   </section>
@@ -451,12 +451,12 @@
   <section>
     <div class="slate reveal">
       <div class="slate-top">
-        <span>PROD: MOMENTO MÉMOIRE</span>
-        <span>SCENE: 04</span>
-        <span>TAKE: 01 — KEEPER</span>
+        <span id="slateProd">PROD: MOMENTO MÉMOIRE</span>
+        <span id="slateScene">SCENE: 04</span>
+        <span id="slateTake">TAKE: 01 — KEEPER</span>
       </div>
-      <blockquote>&ldquo;They showed up, watched the room for twenty minutes before touching a camera, and the footage still looks like us &mdash; just clearer.&rdquo;</blockquote>
-      <cite>— Creative Director, Meridian Hotel Group</cite>
+      <blockquote id="testimonialQuote">&ldquo;They showed up, watched the room for twenty minutes before touching a camera, and the footage still looks like us &mdash; just clearer.&rdquo;</blockquote>
+      <cite id="testimonialCite">— Creative Director, Meridian Hotel Group</cite>
     </div>
   </section>
 </main>
@@ -464,35 +464,35 @@
 <footer id="contact">
   <div class="footer-inner">
     <div class="footer-cta">
-      <h2 class="display">Let's shoot<br>something real.</h2>
-      <a class="btn-book" href="mailto:hello@momentomemoire.example">hello@momentomemoire.example</a>
+      <h2 class="display"><span id="footerHeadingL1">Let's shoot</span><br><span id="footerHeadingL2">something real.</span></h2>
+      <a class="btn-book" id="footerBookLink" href="mailto:hello@momentomemoire.example">hello@momentomemoire.example</a>
     </div>
     <div class="footer-grid">
       <div>
         <h5>Studio</h5>
-        <p>Momento Mémoire</p>
-        <p>Dhaka, Bangladesh</p>
-        <p>Available worldwide</p>
+        <p id="footerAddr1">Momento Mémoire</p>
+        <p id="footerAddr2">Dhaka, Bangladesh</p>
+        <p id="footerAddr3">Available worldwide</p>
       </div>
       <div>
         <h5>Contact</h5>
-        <a href="mailto:hello@momentomemoire.example">hello@momentomemoire.example</a>
-        <a href="tel:+8800000000">+880 00 0000 000</a>
+        <a id="footerEmailLink" href="mailto:hello@momentomemoire.example">hello@momentomemoire.example</a>
+        <a id="footerPhoneLink" href="tel:+8800000000">+880 00 0000 000</a>
       </div>
       <div>
         <h5>Follow</h5>
-        <a href="https://www.instagram.com/momento_memoire/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://web.facebook.com/profile.php?id=61583241300979" target="_blank" rel="noopener">Facebook</a>
+        <a id="footerInstaLink" href="https://www.instagram.com/momento_memoire/" target="_blank" rel="noopener">Instagram</a>
+        <a id="footerFbLink" href="https://web.facebook.com/profile.php?id=61583241300979" target="_blank" rel="noopener">Facebook</a>
       </div>
       <div>
         <h5>Hours</h5>
-        <p>Mon &ndash; Fri, 10:00 &ndash; 19:00</p>
-        <p>Shoots by appointment</p>
+        <p id="footerHours1">Mon &ndash; Fri, 10:00 &ndash; 19:00</p>
+        <p id="footerHours2">Shoots by appointment</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 Momento Mémoire. All frames reserved.</span>
-      <span>ROLL 07 / 36 &mdash; END OF REEL</span>
+      <span id="footerCopyright">&copy; 2026 Momento Mémoire. All frames reserved.</span>
+      <span id="footerRollTag">ROLL 07 / 36 &mdash; END OF REEL</span>
     </div>
   </div>
 </footer>
@@ -812,6 +812,86 @@
   fetch('content/albums.json').then(r => { if (!r.ok) throw 0; return r.json(); })
     .catch(() => ({ items: DEFAULT_ALBUMS }))
     .then(data => renderAlbums(data.items && data.items.length ? data.items : DEFAULT_ALBUMS));
+
+  // ---------- Site text (headings, copy, footer) ----------
+  function setText(id, value){
+    if (value == null || value === '') return;
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+  function setHTML(id, value){
+    if (value == null || value === '') return;
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = value;
+  }
+  function setLink(id, url, text){
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (url) el.setAttribute('href', url);
+    if (text) el.textContent = text;
+  }
+
+  fetch('content/site.json').then(r => { if (!r.ok) throw 0; return r.json(); }).then(s => {
+    if (!s) return;
+    const h = s.hero || {};
+    setText('heroEyebrow', h.eyebrow);
+    setText('heroHeadingL1', h.heading_line1);
+    setText('heroHeadingL2', h.heading_line2);
+    setText('heroSubtext', h.subtext);
+    if (h.meta_line1 || h.meta_line2 || h.meta_line3){
+      setHTML('heroMeta', [h.meta_line1, h.meta_line2, h.meta_line3].filter(Boolean).join('<br>'));
+    }
+
+    setText('reelsHeading', s.reels_heading);
+    setText('reelsTag', s.reels_tag);
+    setText('reelsLead', s.reels_lead);
+    setText('albumsHeading', s.albums_heading);
+    setText('albumsTag', s.albums_tag);
+    setText('albumsLead', s.albums_lead);
+
+    const svc = s.services || {};
+    setText('servicesHeading', svc.heading);
+    setText('servicesTag', svc.tag);
+    [1,2,3].forEach(n => {
+      const item = svc['item' + n] || {};
+      setText('svc' + n + 'Title', item.title);
+      setText('svc' + n + 'Desc', item.description);
+      setText('svc' + n + 'Spec', item.spec);
+    });
+
+    const proc = s.process || {};
+    setText('processHeading', proc.heading);
+    setText('processTag', proc.tag);
+    [1,2,3,4].forEach(n => {
+      const step = proc['step' + n] || {};
+      setText('proc' + n + 'Fstop', step.fstop);
+      setText('proc' + n + 'Title', step.title);
+      setText('proc' + n + 'Desc', step.description);
+    });
+
+    const t = s.testimonial || {};
+    setText('slateProd', t.slate_prod);
+    setText('slateScene', t.slate_scene);
+    setText('slateTake', t.slate_take);
+    setText('testimonialQuote', t.quote);
+    setText('testimonialCite', t.cite);
+
+    const f = s.footer || {};
+    setText('footerHeadingL1', f.heading_line1);
+    setText('footerHeadingL2', f.heading_line2);
+    setLink('footerBookLink', f.email ? 'mailto:' + f.email : null, f.email);
+    setText('footerAddr1', f.addr_line1);
+    setText('footerAddr2', f.addr_line2);
+    setText('footerAddr3', f.addr_line3);
+    setLink('footerEmailLink', f.email ? 'mailto:' + f.email : null, f.email);
+    setLink('footerPhoneLink', f.phone ? 'tel:' + f.phone.replace(/[^+\d]/g,'') : null, f.phone);
+    setLink('footerInstaLink', f.instagram_url, null);
+    setLink('footerFbLink', f.facebook_url, null);
+    setText('footerHours1', f.hours_line1);
+    setText('footerHours2', f.hours_line2);
+    setText('footerCopyright', f.copyright);
+    setText('footerRollTag', f.roll_tag);
+  }).catch(() => {});
 </script>
 
 </body>
