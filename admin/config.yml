@@ -1,0 +1,61 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Media (images/videos) the manager uploads get stored here in the repo
+# and served at /uploads/... on the live site.
+media_folder: "uploads"
+public_folder: "/uploads"
+
+site_url: https://your-site-name.netlify.app
+display_url: https://your-site-name.netlify.app
+
+collections:
+  - name: "reels"
+    label: "🎬 Reels (Videos)"
+    files:
+      - file: "content/reels.json"
+        label: "Reels"
+        name: "reels"
+        fields:
+          - label: "Videos"
+            name: "items"
+            widget: "list"
+            summary: "{{title}} — {{category}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string", hint: "e.g. Meridian Hotel Group" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["Brand Film", "Wedding", "Live Session", "Documentary", "Editorial", "Event", "Product"]
+              - { label: "Duration", name: "duration", widget: "string", required: false, hint: "e.g. 1:24 — leave blank to hide" }
+              - { label: "Short description", name: "blurb", widget: "string", required: false }
+              - { label: "Video link", name: "video", widget: "string", required: false, pattern: ['^(https?:\/\/).*', "Please enter a full link starting with https://"], hint: "Paste a YouTube, Vimeo, Facebook, or Instagram video/reel link. Leave empty to show a placeholder clip." }
+              - { label: "Thumbnail image", name: "poster", widget: "image", required: false, hint: "Optional. Leave empty to use a house placeholder pattern." }
+
+  - name: "albums"
+    label: "🖼️ Albums (Category / Event)"
+    files:
+      - file: "content/albums.json"
+        label: "Albums"
+        name: "albums"
+        fields:
+          - label: "Albums"
+            name: "items"
+            widget: "list"
+            summary: "{{title}} — {{category}}"
+            fields:
+              - { label: "Album title", name: "title", widget: "string", hint: "e.g. Amara & Rafi" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["Wedding", "Brand", "Editorial", "Event", "Documentary", "Product"]
+              - { label: "Date / event label", name: "date", widget: "string", hint: "e.g. Dec 2025" }
+              - { label: "Cover image", name: "cover", widget: "image", required: false, hint: "Optional. Leave empty to use the first photo below." }
+              - label: "Photos"
+                name: "frames"
+                widget: "list"
+                summary: "{{caption}}"
+                fields:
+                  - { label: "Photo", name: "image", widget: "image" }
+                  - { label: "Caption", name: "caption", widget: "string", required: false }

@@ -1,0 +1,52 @@
+{
+  "items": [
+    { "title": "Amara & Rafi", "category": "Wedding", "date": "Dec 2025", "cover": "",
+      "frames": [
+        { "image": "", "caption": "Getting ready, Gulshan" },
+        { "image": "", "caption": "Ceremony, first look" },
+        { "image": "", "caption": "Reception, golden hour" },
+        { "image": "", "caption": "Portraits, rooftop" }
+      ]
+    },
+    { "title": "Meridian Hotel Group", "category": "Brand", "date": "Nov 2025", "cover": "",
+      "frames": [
+        { "image": "", "caption": "Lobby, dusk" },
+        { "image": "", "caption": "Suite detail" },
+        { "image": "", "caption": "Rooftop bar" },
+        { "image": "", "caption": "Guest portrait" }
+      ]
+    },
+    { "title": "Kholo Studios AW25", "category": "Editorial", "date": "Oct 2025", "cover": "",
+      "frames": [
+        { "image": "", "caption": "Look 01, studio" },
+        { "image": "", "caption": "Look 04, natural light" },
+        { "image": "", "caption": "Detail, textile" },
+        { "image": "", "caption": "Look 09, closer" }
+      ]
+    },
+    { "title": "Northline Records Live", "category": "Event", "date": "Sep 2025", "cover": "",
+      "frames": [
+        { "image": "", "caption": "Soundcheck" },
+        { "image": "", "caption": "Opening set" },
+        { "image": "", "caption": "Crowd, wide" },
+        { "image": "", "caption": "Backstage" }
+      ]
+    },
+    { "title": "Delta Coffee Roasters", "category": "Product", "date": "Aug 2025", "cover": "",
+      "frames": [
+        { "image": "", "caption": "Bag, hero shot" },
+        { "image": "", "caption": "Pour, macro" },
+        { "image": "", "caption": "Flat lay" },
+        { "image": "", "caption": "Roastery, wide" }
+      ]
+    },
+    { "title": "Faraway Trails", "category": "Documentary", "date": "Jul 2025", "cover": "",
+      "frames": [
+        { "image": "", "caption": "Sunrise, ridge line" },
+        { "image": "", "caption": "Village, portrait" },
+        { "image": "", "caption": "River crossing" },
+        { "image": "", "caption": "Camp, evening" }
+      ]
+    }
+  ]
+}
