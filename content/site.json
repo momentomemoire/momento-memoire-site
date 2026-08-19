@@ -1,82 +1,49 @@
 {
-  "reels_lead": "Full films behind the stills. Tap any block to play — sound on.",
-  "albums_heading": "Albums",
-  "process": {
-    "heading": "One Exposure",
-    "tag": "SHOOT-DAY SEQUENCE",
-    "step1": {
-      "fstop": "f/16 — WIDE",
-      "title": "Concept",
-      "description": "A working call to understand the brief, the audience, and the one shot the whole project hinges on."
-    },
-    "step2": {
-      "fstop": "f/8 — SCOUT",
-      "title": "Prep & Scout",
-      "description": "Locations, casting, and a shot list tight enough to move fast on the day without losing the plan."
-    },
-    "step3": {
-      "fstop": "f/2.8 — SHOOT",
-      "title": "Production",
-      "description": "A small crew, a quiet set, and a director who's watching the monitor, not the clock."
-    },
-    "step4": {
-      "fstop": "f/1.4 — DEVELOP",
-      "title": "Edit & Deliver",
-      "description": "Selects sent within 48 hours. Final cut, color, and files delivered on a schedule you signed off on."
-    }
-  },
-  "reels_tag": "04 FILMS",
-  "albums_lead": "Every shoot filed like a roll of film — browse by category or find the exact event.",
   "hero": {
     "eyebrow": "Photography & Film — Est. Dhaka, working worldwide",
     "meta_line1": "ROLL 07 — 36 EXP",
-    "meta_line2": "f/2.8 · 1/125 · ISO 400",
-    "meta_line3": "DEVELOPED ON REQUEST",
     "heading_line1": "We shoot what",
     "heading_line2": "doesn't fade.",
     "subtext": "A boutique photo & video studio for brands, weddings, and directors who'd rather show than tell. Every frame reviewed by hand before it leaves the lab."
   },
-  "footer": {
-    "heading_line1": "Let's shoot",
-    "heading_line2": "something real.",
-    "instagram_url": "https://www.instagram.com/momento_memoire/",
-    "copyright": "© 2026 Momento Mémoire. All Frames Reserved.",
-    "hours_line1": "Mon – Fri, 10:00 – 19:00",
-    "phone": "+880 00 0000 000",
-    "hours_line2": "Shoots by appointment",
-    "addr_line1": "Momento Mémoire",
-    "addr_line2": "Dhaka, Bangladesh",
-    "addr_line3": "Available worldwide",
-    "facebook_url": "https://web.facebook.com/profile.php?id=61583241300979",
-    "roll_tag": "ROLL 07 / 36 — END OF REEL",
-    "email": "hello@momentomemoire.example"
-  },
   "reels_heading": "Reels",
+  "reels_tag": "04 FILMS",
+  "reels_lead": "Full films behind the stills. Tap any block to play — sound on.",
+  "albums_heading": "Albums",
+  "albums_tag": "BY CATEGORY & EVENT",
+  "albums_lead": "Every shoot filed like a roll of film — browse by category or find the exact event.",
   "services": {
     "heading": "The Roll",
     "tag": "03 DISCIPLINES",
-    "item1": {
-      "title": "Photography",
-      "description": "Editorial, product, and portrait work shot on location or in studio. Every set lit by hand, every frame culled by a human eye, not a preset.",
-      "spec": "DELIVERY — 5–10 BUSINESS DAYS"
-    },
-    "item2": {
-      "title": "Videography",
-      "description": "Brand films, EPKs, and documentary shorts. We write, shoot, and cut — no hand-offs, no notes lost in translation between departments.",
-      "spec": "DELIVERY — 2–4 WEEKS"
-    },
-    "item3": {
-      "title": "Post & Color",
-      "description": "Grading, retouching, and sound design done in-house, so the print matches what we saw through the viewfinder on set.",
-      "spec": "DELIVERY — SCOPED PER PROJECT"
-    }
+    "item1": { "title": "Photography", "description": "Editorial, product, and portrait work shot on location or in studio. Every set lit by hand, every frame culled by a human eye, not a preset.", "spec": "DELIVERY — 5–10 BUSINESS DAYS" },
+    "item2": { "title": "Videography", "description": "Brand films, EPKs, and documentary shorts. We write, shoot, and cut — no hand-offs, no notes lost in translation between departments.", "spec": "DELIVERY — 2–4 WEEKS" },
+    "item3": { "title": "Post & Color", "description": "Grading, retouching, and sound design done in-house, so the print matches what we saw through the viewfinder on set.", "spec": "DELIVERY — SCOPED PER PROJECT" }
+  },
+  "process": {
+    "heading": "One Exposure",
+    "tag": "SHOOT-DAY SEQUENCE",
+    "step1": { "fstop": "f/16 — WIDE", "title": "Concept", "description": "A working call to understand the brief, the audience, and the one shot the whole project hinges on." },
+    "step2": { "fstop": "f/8 — SCOUT", "title": "Prep & Scout", "description": "Locations, casting, and a shot list tight enough to move fast on the day without losing the plan." },
+    "step3": { "fstop": "f/2.8 — SHOOT", "title": "Production", "description": "A small crew, a quiet set, and a director who's watching the monitor, not the clock." },
+    "step4": { "fstop": "f/1.4 — DEVELOP", "title": "Edit & Deliver", "description": "Selects sent within 48 hours. Final cut, color, and files delivered on a schedule you signed off on." }
   },
   "testimonial": {
-    "slate_prod": "PROD: MOMENTO MÉMOIRE",
-    "slate_scene": "SCENE: 04",
-    "slate_take": "TAKE: 01 — KEEPER",
+    "slate_prod": "MOMENTO MÉMOIRE — CLIENT NOTE",
     "quote": "“They showed up, watched the room for twenty minutes before touching a camera, and the footage still looks like us — just clearer.”",
     "cite": "— Creative Director, Meridian Hotel Group"
   },
-  "albums_tag": "BY CATEGORY & EVENT"
+  "footer": {
+    "heading_line1": "Let's shoot",
+    "heading_line2": "something real.",
+    "email": "hello@momentomemoire.example",
+    "phone": "+880 00 0000 000",
+    "addr_line1": "Momento Mémoire",
+    "addr_line2": "Dhaka, Bangladesh",
+    "addr_line3": "Available worldwide",
+    "instagram_url": "https://www.instagram.com/momento_memoire/",
+    "facebook_url": "https://web.facebook.com/profile.php?id=61583241300979",
+    "hours_line1": "Mon – Fri, 10:00 – 19:00",
+    "hours_line2": "Shoots by appointment",
+    "copyright": "© 2026 Momento Mémoire. All frames reserved."
+  }
 }
