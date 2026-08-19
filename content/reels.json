@@ -1,8 +1,36 @@
 {
   "items": [
-    { "title": "Meridian Hotel Group", "category": "Brand Film", "duration": "0:15", "blurb": "Full brand campaign film", "video": "", "poster": "" },
-    { "title": "Amara & Rafi", "category": "Wedding", "duration": "0:15", "blurb": "Same-day edit, full ceremony", "video": "", "poster": "" },
-    { "title": "Northline Records", "category": "Live Session", "duration": "0:60", "blurb": "EPK & live performance cut", "video": "", "poster": "" },
-    { "title": "Faraway Trails", "category": "Documentary", "duration": "0:15", "blurb": "Short-form travel documentary", "video": "", "poster": "" }
+    {
+      "title": "NSU Boishakh - Flashmob",
+      "category": "Event",
+      "duration": "0:15",
+      "blurb": "",
+      "video": "https://www.instagram.com/p/DXJTaE5DoRk/",
+      "poster": ""
+    },
+    {
+      "title": "Amara & Rafi",
+      "category": "Wedding",
+      "duration": "0:15",
+      "blurb": "Same-day edit, full ceremony",
+      "video": "",
+      "poster": ""
+    },
+    {
+      "title": "Northline Records",
+      "category": "Live Session",
+      "duration": "0:60",
+      "blurb": "EPK & live performance cut",
+      "video": "",
+      "poster": ""
+    },
+    {
+      "title": "Faraway Trails",
+      "category": "Documentary",
+      "duration": "0:15",
+      "blurb": "Short-form travel documentary",
+      "video": "",
+      "poster": ""
+    }
   ]
 }
