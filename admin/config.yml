@@ -118,6 +118,31 @@ collections:
               - { label: "Hours — line 2", name: "hours_line2", widget: "string", required: false }
               - { label: "Copyright line", name: "copyright", widget: "string" }
 
+  - name: "team"
+    label: "👥 Team"
+    files:
+      - file: "content/team.json"
+        label: "Team"
+        name: "team"
+        fields:
+          - label: "Team members"
+            name: "items"
+            widget: "list"
+            summary: "{{name}} — {{role}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role / title", name: "role", widget: "string" }
+              - label: "Hierarchy level"
+                name: "tier"
+                widget: "select"
+                hint: "Controls where they appear and how prominent their card is."
+                options:
+                  - { label: "1 — Leadership (largest, top)", value: 1 }
+                  - { label: "2 — Core Crew (medium)", value: 2 }
+                  - { label: "3 — Associates (compact list)", value: 3 }
+              - { label: "Photo", name: "photo", widget: "image", required: false, hint: "Optional. Leave empty to use a house placeholder pattern." }
+              - { label: "Short note", name: "note", widget: "string", required: false, hint: "Optional one-liner, e.g. a specialty or fun fact." }
+
   - name: "reels"
     label: "🎬 Reels (Videos)"
     files:
