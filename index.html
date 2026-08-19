@@ -31,6 +31,23 @@
     color:var(--paper);
     font-family:'Source Serif 4', serif;
     overflow-x:hidden;
+    position:relative;
+  }
+  /* Animated brushed-metal sheen — slow drifting light across the dark background */
+  body::before{
+    content:'';
+    position:fixed; inset:-25%;
+    z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(55% 45% at 18% 12%, rgba(183,189,199,0.10), transparent 60%),
+      radial-gradient(50% 42% at 85% 82%, rgba(150,158,170,0.09), transparent 60%),
+      conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,0.015), rgba(255,255,255,0.05), rgba(255,255,255,0.015), rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+    animation: bgDrift 50s linear infinite;
+  }
+  @keyframes bgDrift{
+    0%{ transform:rotate(0deg) scale(1); }
+    50%{ transform:rotate(180deg) scale(1.06); }
+    100%{ transform:rotate(360deg) scale(1); }
   }
   ::selection{background:var(--accent); color:var(--accent-ink);}
   section{ scroll-margin-top: calc(var(--header-h) + 14px); }
@@ -45,13 +62,50 @@
   .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em; }
 
   .grain{
-    position:fixed; inset:0; pointer-events:none; z-index:200;
+    position:fixed; inset:-5%; pointer-events:none; z-index:200;
     opacity:0.05; mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainDrift 7s steps(6) infinite;
+  }
+  @keyframes grainDrift{
+    0%{ transform:translate(0,0); }
+    20%{ transform:translate(-3%,2%); }
+    40%{ transform:translate(2%,-2%); }
+    60%{ transform:translate(-2%,-3%); }
+    80%{ transform:translate(3%,1%); }
+    100%{ transform:translate(0,0); }
   }
 
   a{color:inherit;}
   button{font:inherit; color:inherit; background:none; border:none; cursor:pointer;}
+
+  /* ---------- Preloader ---------- */
+  body.is-loading{ overflow:hidden; }
+  .preloader{
+    position:fixed; inset:0; z-index:500;
+    background:var(--black);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px;
+    transition:opacity .6s ease, visibility 0s linear 0s;
+  }
+  .preloader.done{ opacity:0; visibility:hidden; transition:opacity .6s ease, visibility 0s linear .6s; }
+  .preloader-icon{
+    width:56px; height:56px;
+    animation: shutterBreathe 1.8s cubic-bezier(.45,0,.55,1) infinite;
+  }
+  @keyframes shutterBreathe{
+    0%, 100%{ transform:scale(0.82) rotate(0deg); opacity:0.65; }
+    50%{ transform:scale(1) rotate(200deg); opacity:1; }
+  }
+  .preloader-bar{ width:110px; height:1px; background:rgba(238,240,242,0.15); position:relative; overflow:hidden; }
+  .preloader-fill{ position:absolute; top:0; bottom:0; left:0; width:28%; background:var(--accent-bright); animation: preloaderSweep 1.3s ease-in-out infinite; }
+  @keyframes preloaderSweep{
+    0%{ transform:translateX(-120%); }
+    100%{ transform:translateX(460%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .preloader-icon{ animation:none; }
+    .preloader-fill{ animation:none; width:100%; }
+  }
 
   /* ---------- Reveal on scroll: aperture-iris effect ---------- */
   .reveal{
@@ -225,6 +279,43 @@
   .album-info h4{ font-family:'Cinzel',sans-serif; font-size:1.5rem; letter-spacing:0.02em; }
   .album-info .am{ font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:var(--grey-light); margin-top:3px; }
 
+  /* ---------- Team / hierarchy ---------- */
+  .team-tier{ margin-bottom:44px; }
+  .team-tier:last-child{ margin-bottom:0; }
+  .team-tier-label{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--steel); margin-bottom:18px;
+  }
+  .team-grid{ display:grid; gap:24px; }
+  .team-tier[data-tier="1"] .team-grid{ grid-template-columns:repeat(auto-fit, minmax(220px, 260px)); justify-content:center; }
+  .team-tier[data-tier="2"] .team-grid{ grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); }
+  .team-tier[data-tier="3"] .team-grid{ grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; }
+
+  .team-card{ text-align:center; }
+  .team-tier[data-tier="3"] .team-card{
+    display:flex; align-items:center; gap:14px; text-align:left;
+    border:1px solid rgba(238,240,242,0.1); padding:12px 14px;
+  }
+
+  .team-photo{
+    position:relative; overflow:hidden; margin:0 auto 16px; background:var(--black-2);
+  }
+  .team-tier[data-tier="1"] .team-photo{ width:100%; aspect-ratio:3/4; margin-bottom:18px; }
+  .team-tier[data-tier="2"] .team-photo{ width:100%; aspect-ratio:1/1; border-radius:50%; margin-bottom:16px; }
+  .team-tier[data-tier="3"] .team-photo{ width:56px; height:56px; border-radius:50%; margin:0; flex-shrink:0; }
+  .team-photo .ph-block{ transition:transform 1s cubic-bezier(.2,.7,.2,1); }
+  .team-card:hover .ph-block{ transform:scale(1.06); }
+
+  .team-name{ font-family:'Cinzel', serif; font-weight:600; letter-spacing:0.02em; }
+  .team-tier[data-tier="1"] .team-name{ font-size:1.3rem; }
+  .team-tier[data-tier="2"] .team-name{ font-size:1.05rem; }
+  .team-tier[data-tier="3"] .team-name{ font-size:0.96rem; }
+  .team-role{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--steel); margin-top:5px;
+  }
+  .team-note{ font-family:'Source Serif 4', serif; font-style:italic; font-size:0.86rem; color:var(--paper-dim); margin-top:10px; }
+
   /* ---------- Services / Roll ---------- */
   .roll{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(238,240,242,0.12); }
   @media(max-width:820px){ .roll{ grid-template-columns:1fr; } }
@@ -298,7 +389,11 @@
   a:focus-visible, button:focus-visible, .frame:focus-visible, .album:focus-visible{ outline:2px solid var(--accent-bright); outline-offset:3px; }
 </style>
 </head>
-<body>
+<body class="is-loading">
+<div id="preloader" class="preloader" aria-hidden="true">
+  <img src="assets/logo-icon.png" alt="" class="preloader-icon">
+  <div class="preloader-bar"><div class="preloader-fill"></div></div>
+</div>
 <div class="grain"></div>
 
 <header>
@@ -313,6 +408,7 @@
     <div class="navlinks">
       <a href="#reels">Reels</a>
       <a href="#albums">Albums</a>
+      <a href="#team">Team</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
       <a href="#contact">Contact</a>
@@ -329,6 +425,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#reels">Reels</a>
   <a href="#albums">Albums</a>
+  <a href="#team">Team</a>
   <a href="#services">Services</a>
   <a href="#process">Process</a>
   <a href="#contact">Contact</a>
@@ -411,6 +508,17 @@
 
     <div class="albums-grid" id="albumsGrid">
       <!-- Populated from content/albums.json — edit via /admin -->
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="section-head reveal">
+      <h2 class="display" id="teamHeading">The Crew</h2>
+      <div class="section-num" id="teamTag">BEHIND THE CAMERA</div>
+    </div>
+    <div id="teamWrap">
+      <!-- Populated from content/team.json — edit via /admin -->
     </div>
   </section>
 
@@ -562,6 +670,24 @@
 </div>
 
 <script>
+  // ---------- Preloader ----------
+  (function(){
+    const shownAt = Date.now();
+    const MIN_MS = 500; // avoid a jarring flash on fast loads
+    function hide(){
+      const wait = Math.max(0, MIN_MS - (Date.now() - shownAt));
+      setTimeout(() => {
+        const pre = document.getElementById('preloader');
+        if (pre) pre.classList.add('done');
+        document.body.classList.remove('is-loading');
+      }, wait);
+    }
+    if (document.readyState === 'complete') hide();
+    else window.addEventListener('load', hide);
+    // Safety net in case 'load' is delayed by a slow third-party asset
+    setTimeout(hide, 3000);
+  })();
+
   // ---------- Mobile menu ----------
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -689,6 +815,18 @@
     { title:'Northline Records Live', category:'Event', date:'Sep 2025', cover:'', frames:[{image:'',caption:'Soundcheck'},{image:'',caption:'Opening set'},{image:'',caption:'Crowd, wide'},{image:'',caption:'Backstage'}] },
     { title:'Delta Coffee Roasters', category:'Product', date:'Aug 2025', cover:'', frames:[{image:'',caption:'Bag, hero shot'},{image:'',caption:'Pour, macro'},{image:'',caption:'Flat lay'},{image:'',caption:'Roastery, wide'}] },
     { title:'Faraway Trails', category:'Documentary', date:'Jul 2025', cover:'', frames:[{image:'',caption:'Sunrise, ridge line'},{image:'',caption:'Village, portrait'},{image:'',caption:'River crossing'},{image:'',caption:'Camp, evening'}] }
+  ];
+
+  const DEFAULT_TEAM = [
+    { name:'Adiba Rahman', role:'Founder & Creative Director', tier:1, photo:'', note:'' },
+    { name:'Arnav Chowdhury', role:'Executive Producer', tier:1, photo:'', note:'' },
+    { name:'Naeem Hasan', role:'Lead Photographer', tier:2, photo:'', note:'' },
+    { name:'Tanvir Ahmed', role:'Lead Cinematographer', tier:2, photo:'', note:'' },
+    { name:'Farah Islam', role:'Photo Editor & Colorist', tier:2, photo:'', note:'' },
+    { name:'Zoya Karim', role:'Video Editor & Sound', tier:2, photo:'', note:'' },
+    { name:'Imran Kabir', role:'Second Shooter', tier:3, photo:'', note:'' },
+    { name:'Priya Das', role:'Production Coordinator', tier:3, photo:'', note:'' },
+    { name:'Shuvo Rahman', role:'Studio Assistant', tier:3, photo:'', note:'' }
   ];
 
   // ---------- Video link → embed detection ----------
@@ -899,6 +1037,51 @@
     });
   }
 
+  // ---------- Render: Team ----------
+  const TIER_LABELS = { 1: 'Leadership', 2: 'Core Crew', 3: 'Associates' };
+  function renderTeam(items){
+    const wrap = document.getElementById('teamWrap');
+    wrap.innerHTML = '';
+    [1, 2, 3].forEach(tierNum => {
+      const members = items.filter(m => Number(m.tier) === tierNum);
+      if (!members.length) return;
+
+      const tierEl = document.createElement('div');
+      tierEl.className = 'team-tier reveal';
+      tierEl.dataset.tier = tierNum;
+
+      const label = document.createElement('div');
+      label.className = 'team-tier-label';
+      label.textContent = TIER_LABELS[tierNum];
+      tierEl.appendChild(label);
+
+      const grid = document.createElement('div');
+      grid.className = 'team-grid';
+
+      members.forEach((m, i) => {
+        const card = document.createElement('div');
+        card.className = 'team-card';
+
+        const photo = document.createElement('div');
+        photo.className = 'team-photo';
+        photo.appendChild(phDiv(i, m.photo));
+        card.appendChild(photo);
+
+        const info = document.createElement('div');
+        info.className = 'team-info';
+        info.innerHTML = `<div class="team-name">${esc(m.name||'')}</div><div class="team-role">${esc(m.role||'')}</div>` +
+          (m.note ? `<div class="team-note">${esc(m.note)}</div>` : '');
+        card.appendChild(info);
+
+        grid.appendChild(card);
+      });
+
+      tierEl.appendChild(grid);
+      wrap.appendChild(tierEl);
+      io.observe(tierEl);
+    });
+  }
+
   // ---------- Load content ----------
   fetch('content/reels.json').then(r => { if (!r.ok) throw 0; return r.json(); })
     .catch(() => ({ items: DEFAULT_REELS }))
@@ -907,6 +1090,10 @@
   fetch('content/albums.json').then(r => { if (!r.ok) throw 0; return r.json(); })
     .catch(() => ({ items: DEFAULT_ALBUMS }))
     .then(data => renderAlbums(data.items && data.items.length ? data.items : DEFAULT_ALBUMS));
+
+  fetch('content/team.json').then(r => { if (!r.ok) throw 0; return r.json(); })
+    .catch(() => ({ items: DEFAULT_TEAM }))
+    .then(data => renderTeam(data.items && data.items.length ? data.items : DEFAULT_TEAM));
 
   // ---------- Site text (headings, copy, footer) ----------
   function setText(id, value){
