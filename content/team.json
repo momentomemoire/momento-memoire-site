@@ -15,6 +15,11 @@
       "note": ""
     },
     {
+      "tier": 1,
+      "name": "Fokir",
+      "role": "Uzzaman"
+    },
+    {
       "name": "Naeem Hasan",
       "role": "Lead Photographer",
       "tier": 2,
@@ -62,11 +67,6 @@
       "tier": 3,
       "photo": "",
       "note": ""
-    },
-    {
-      "tier": 1,
-      "name": "Fokir",
-      "role": "Uzzaman"
     }
   ]
 }
