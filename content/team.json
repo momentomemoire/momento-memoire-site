@@ -1,13 +1,72 @@
 {
   "items": [
-    { "name": "Adiba Rahman", "role": "Founder & Creative Director", "tier": 1, "photo": "", "note": "" },
-    { "name": "Arnav Chowdhury", "role": "Executive Producer", "tier": 1, "photo": "", "note": "" },
-    { "name": "Naeem Hasan", "role": "Lead Photographer", "tier": 2, "photo": "", "note": "" },
-    { "name": "Tanvir Ahmed", "role": "Lead Cinematographer", "tier": 2, "photo": "", "note": "" },
-    { "name": "Farah Islam", "role": "Photo Editor & Colorist", "tier": 2, "photo": "", "note": "" },
-    { "name": "Zoya Karim", "role": "Video Editor & Sound", "tier": 2, "photo": "", "note": "" },
-    { "name": "Imran Kabir", "role": "Second Shooter", "tier": 3, "photo": "", "note": "" },
-    { "name": "Priya Das", "role": "Production Coordinator", "tier": 3, "photo": "", "note": "" },
-    { "name": "Shuvo Rahman", "role": "Studio Assistant", "tier": 3, "photo": "", "note": "" }
+    {
+      "name": "Adiba Rahman",
+      "role": "Founder & Creative Director",
+      "tier": 1,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Arnav Chowdhury",
+      "role": "Executive Producer",
+      "tier": 1,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Naeem Hasan",
+      "role": "Lead Photographer",
+      "tier": 2,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Tanvir Ahmed",
+      "role": "Lead Cinematographer",
+      "tier": 2,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Farah Islam",
+      "role": "Photo Editor & Colorist",
+      "tier": 2,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Zoya Karim",
+      "role": "Video Editor & Sound",
+      "tier": 2,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Imran Kabir",
+      "role": "Second Shooter",
+      "tier": 3,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Priya Das",
+      "role": "Production Coordinator",
+      "tier": 3,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "name": "Shuvo Rahman",
+      "role": "Studio Assistant",
+      "tier": 3,
+      "photo": "",
+      "note": ""
+    },
+    {
+      "tier": 1,
+      "name": "Fokir",
+      "role": "Uzzaman"
+    }
   ]
 }
