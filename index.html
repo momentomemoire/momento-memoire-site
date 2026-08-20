@@ -718,14 +718,19 @@
     const ring = document.getElementById('cursorRing');
     const label = document.getElementById('cursorLabel');
     let mx = -100, my = -100, rx = -100, ry = -100;
-    let seen = false;
 
     window.addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
       dot.style.transform = `translate(${mx}px, ${my}px)`;
-      if (!seen){ seen = true; dot.style.opacity = 1; ring.style.opacity = 1; rx = mx; ry = my; }
+      dot.style.opacity = 1;
+      ring.style.opacity = 1;
     }, { passive: true });
 
+    document.addEventListener('mouseenter', (e) => {
+      rx = e.clientX; ry = e.clientY;
+      dot.style.opacity = 1;
+      ring.style.opacity = 1;
+    });
     document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
 
     (function loop(){
