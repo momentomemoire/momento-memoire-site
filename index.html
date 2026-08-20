@@ -411,6 +411,7 @@
       <a href="#team">Team</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
+      <a id="navGalleriesLink" href="#" target="_blank" rel="noopener">Galleries</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
@@ -428,6 +429,7 @@
   <a href="#team">Team</a>
   <a href="#services">Services</a>
   <a href="#process">Process</a>
+  <a id="mobileGalleriesLink" href="#" target="_blank" rel="noopener">Galleries</a>
   <a href="#contact">Contact</a>
   <a class="m-cta" href="#contact">Book a call</a>
 </div>
@@ -612,6 +614,7 @@
         <h5>Contact</h5>
         <a id="footerEmailLink" href="mailto:hello@momentomemoire.example">hello@momentomemoire.example</a>
         <a id="footerPhoneLink" href="tel:+8800000000">+880 00 0000 000</a>
+        <a id="footerGalleriesLink" href="#" target="_blank" rel="noopener">Client Galleries</a>
       </div>
       <div>
         <h5>Follow</h5>
@@ -717,21 +720,32 @@
     const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     const label = document.getElementById('cursorLabel');
-    let mx = -100, my = -100, rx = -100, ry = -100;
+    let mx = -100, my = -100, rx = -100, ry = -100, cursorHidden = true;
+
+    function showCursor(){
+      if (cursorHidden){ cursorHidden = false; rx = mx; ry = my; } // snap on re-entry, no slide-in
+      dot.style.opacity = 1;
+      ring.style.opacity = 1;
+    }
+    function hideCursor(){
+      cursorHidden = true;
+      dot.style.opacity = 0;
+      ring.style.opacity = 0;
+    }
 
     window.addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
       dot.style.transform = `translate(${mx}px, ${my}px)`;
-      dot.style.opacity = 1;
-      ring.style.opacity = 1;
+      showCursor();
     }, { passive: true });
 
-    document.addEventListener('mouseenter', (e) => {
-      rx = e.clientX; ry = e.clientY;
-      dot.style.opacity = 1;
-      ring.style.opacity = 1;
+    // relatedTarget/toElement is null exactly when the pointer leaves the document
+    // entirely (vs. moving between elements inside the page) — the reliable
+    // cross-browser way to detect "left the window", unlike document 'mouseleave'.
+    document.addEventListener('mouseout', (e) => {
+      if (!e.relatedTarget && !e.toElement) hideCursor();
     });
-    document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
+    window.addEventListener('blur', hideCursor);
 
     (function loop(){
       if (!document.hidden){
@@ -1165,6 +1179,16 @@
     setLink('footerPhoneLink', f.phone ? 'tel:' + f.phone.replace(/[^+\d]/g,'') : null, f.phone);
     setLink('footerInstaLink', f.instagram_url, null);
     setLink('footerFbLink', f.facebook_url, null);
+    const galleriesUrl = f.client_galleries_url;
+    [ 'navGalleriesLink', 'mobileGalleriesLink', 'footerGalleriesLink' ].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (galleriesUrl && !/your-gallery-app/.test(galleriesUrl)){
+        el.setAttribute('href', galleriesUrl);
+      } else {
+        el.style.display = 'none'; // hide until a real gallery URL is configured
+      }
+    });
     setText('footerHours1', f.hours_line1);
     setText('footerHours2', f.hours_line2);
     setText('footerCopyright', f.copyright);
