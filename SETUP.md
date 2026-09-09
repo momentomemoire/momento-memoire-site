@@ -54,13 +54,19 @@ A simple dashboard with two sections:
 - **🎬 Reels (Videos)** — add/remove video blocks, paste a YouTube/Vimeo/Facebook/Instagram link, set the category, duration, and short description.
 - **🖼️ Albums (Category / Event)** — add/remove albums, set category and date, upload photos with captions.
 - **👥 Team** — add/remove team members, upload a photo, and set their hierarchy level (Leadership / Core Crew / Associates) from a dropdown — this controls how prominently they appear on the site automatically.
+- **🏷️ Brands** — add the names (and optionally logos) of brands you've worked with. They appear as an auto-scrolling strip on the homepage. Leave the logo empty for any brand to show its name as text instead — no need to have a logo ready for every one.
 
 Every change they publish updates the live site automatically within about a minute — no code, no developer needed.
 
 ## Notes
 
 - **Videos are links, not uploads:** in the Reels editor, paste the video's page link — from YouTube, Vimeo, Facebook, or Instagram — into the "Video link" field. The site detects which platform it's from and embeds the player automatically. Nothing to upload, no file size limits.
+  - **Thumbnails are automatic for YouTube and Vimeo** — the site fetches the real thumbnail and correct shape on its own, so the "Thumbnail image" field can stay empty for those.
+  - **Facebook and Instagram don't support that** (neither platform allows fetching a thumbnail without a developer login), so upload a thumbnail manually for those two, or a placeholder pattern will show instead.
+  - Cards on the Reels section now arrange themselves automatically (like a photo wall) to fit each video's real shape — portrait Instagram Reels next to landscape YouTube videos, no manual sizing needed.
   - YouTube / Vimeo / Facebook: plays inline in the popup with sound and controls.
   - Instagram: opens as an embedded post card (Instagram doesn't allow a plain video-only embed); there's also an "Open on Instagram" link underneath in case the embed doesn't load.
   - Make sure the post/video is set to **Public** on that platform, or visitors won't be able to view it.
+- **Uploading multiple album photos at once:** click "Add" under Photos, then "Choose an image" — in the media library popup, hold **Ctrl** (or **Cmd** on Mac) and click several photos to select them all, then confirm. They'll all be added in one go instead of one at a time. There's no limit on how many photos an album can hold.
+  - Album covers also arrange themselves by their real shape now — no need to crop photos to match each other.
 - **Previewing locally:** because the site loads `content/reels.json` and `content/albums.json` dynamically, double-clicking `index.html` on your computer will show placeholder demo content instead of live data (browsers block that kind of file loading offline). Once deployed on Netlify this isn't an issue.

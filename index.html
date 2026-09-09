@@ -117,7 +117,7 @@
 
   /* ---------- Custom cursor: viewfinder ---------- */
   @media (hover:hover) and (pointer:fine){
-    body.custom-cursor, body.custom-cursor a, body.custom-cursor button{ cursor:none; }
+    body.custom-cursor, body.custom-cursor *{ cursor:none; }
   }
   .cursor-dot{
     position:fixed; top:0; left:0; width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
@@ -190,6 +190,37 @@
   .hero h1{ font-size:clamp(2.6rem, 8.5vw, 7.5rem); max-width:14ch; }
   .hero-meta{ font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--grey-light); text-align:right; line-height:1.6; }
   .hero-sub{ max-width:46ch; font-size:clamp(1rem,2.4vw,1.15rem); color:var(--paper-dim); font-style:italic; margin-top:10px; }
+
+  /* ---------- Brand strip: infinite logo marquee ---------- */
+  .brand-strip-wrap{ margin-top:36px; }
+  .brand-strip-label{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--steel); margin-bottom:14px;
+  }
+  .brand-strip{
+    overflow:hidden; position:relative;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+  }
+  .brand-track{
+    display:flex; align-items:center; gap:52px; width:max-content;
+    animation: brandSlide 32s linear infinite;
+  }
+  .brand-strip:hover .brand-track{ animation-play-state:paused; }
+  @keyframes brandSlide{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .brand-item{
+    display:flex; align-items:center; justify-content:center;
+    height:30px; flex-shrink:0;
+    opacity:0.5; filter:grayscale(1) brightness(1.7);
+    transition:opacity .3s, filter .3s;
+  }
+  .brand-item:hover{ opacity:1; filter:grayscale(0) brightness(1); }
+  .brand-item img{ height:100%; width:auto; max-width:140px; object-fit:contain; display:block; }
+  .brand-item .brand-word{
+    font-family:'Cinzel', serif; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    font-size:0.85rem; color:var(--paper-dim); white-space:nowrap;
+  }
+
   .hero-actions{ display:flex; gap:14px; margin-top:26px; flex-wrap:wrap; }
   .btn-primary, .btn-ghost{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; font-size:0.78rem; letter-spacing:0.05em; text-decoration:none; padding:14px 26px; display:inline-block; min-height:44px; }
   .btn-primary{ background:var(--accent); color:var(--accent-ink); transition:background .2s; }
@@ -235,8 +266,8 @@
   .section-lead{ max-width:56ch; color:var(--paper-dim); margin:-28px 0 40px; font-size:1rem; line-height:1.6; }
 
   /* ---------- REELS (video blocks) ---------- */
-  .reels-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:22px; }
-  .reel{ position:relative; border-radius:2px; overflow:hidden; aspect-ratio:16/10; cursor:pointer; background:var(--black-2); }
+  .reels-grid{ columns:3 300px; column-gap:22px; }
+  .reel{ position:relative; border-radius:2px; overflow:hidden; aspect-ratio:16/9; cursor:pointer; background:var(--black-2); break-inside:avoid; margin-bottom:22px; display:block; width:100%; }
   .reel:focus-visible{ outline:2px solid var(--accent-bright); outline-offset:3px; }
   .reel .ph-block{ transition:transform 1.1s cubic-bezier(.2,.7,.2,1), filter .5s; filter:saturate(0.5) brightness(0.85); }
   .reel:hover .ph-block{ transform:scale(1.06); filter:saturate(0.75) brightness(0.95); }
@@ -267,8 +298,8 @@
   }
   .chip.active, .chip:hover{ background:var(--paper); color:var(--black); border-color:var(--paper); }
 
-  .albums-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:26px; }
-  .album{ cursor:pointer; transition:opacity .35s, transform .35s; }
+  .albums-grid{ columns:3 300px; column-gap:26px; }
+  .album{ cursor:pointer; transition:opacity .35s, transform .35s; break-inside:avoid; margin-bottom:26px; display:block; width:100%; }
   .album.hide{ display:none; }
   .album-cover{ position:relative; aspect-ratio:4/3; overflow:hidden; }
   .album-cover .ph-block{ filter:saturate(0.55) contrast(1.05); transition:transform 1s cubic-bezier(.2,.7,.2,1); }
@@ -443,6 +474,16 @@
     </div>
     <h1 class="display"><span id="heroHeadingL1">We shoot what</span><br><span id="heroHeadingL2">doesn't fade.</span></h1>
     <p class="hero-sub" id="heroSubtext">A boutique photo &amp; video studio for brands, weddings, and directors who'd rather show than tell. Every frame reviewed by hand before it leaves the lab.</p>
+
+    <div class="brand-strip-wrap reveal" id="brandStripWrap">
+      <div class="brand-strip-label" id="brandStripLabel">Brands We've Worked With</div>
+      <div class="brand-strip">
+        <div class="brand-track" id="brandTrack">
+          <!-- Populated from content/brands.json — edit via /admin -->
+        </div>
+      </div>
+    </div>
+
     <div class="hero-actions">
       <a class="btn-primary" href="#reels">Watch the reels</a>
       <a class="btn-ghost" href="#albums">Browse albums</a>
@@ -739,13 +780,17 @@
       showCursor();
     }, { passive: true });
 
-    // relatedTarget/toElement is null exactly when the pointer leaves the document
-    // entirely (vs. moving between elements inside the page) — the reliable
-    // cross-browser way to detect "left the window", unlike document 'mouseleave'.
-    document.addEventListener('mouseout', (e) => {
-      if (!e.relatedTarget && !e.toElement) hideCursor();
+    // Bound to the <html> element itself (not the `document` object) — some browsers
+    // handle mouseenter/mouseleave inconsistently when attached directly to `document`,
+    // which is what caused the cursor to stay hidden after leaving/re-entering the window.
+    const rootEl = document.documentElement;
+    rootEl.addEventListener('mouseleave', hideCursor);
+    rootEl.addEventListener('mouseenter', (e) => {
+      mx = e.clientX; my = e.clientY;
+      showCursor();
     });
     window.addEventListener('blur', hideCursor);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) hideCursor(); });
 
     (function loop(){
       if (!document.hidden){
@@ -848,6 +893,17 @@
     { name:'Shuvo Rahman', role:'Studio Assistant', tier:3, photo:'', note:'' }
   ];
 
+  const DEFAULT_BRANDS = [
+    { name:'Meridian Hotel Group', logo:'' },
+    { name:'Kholo Studios', logo:'' },
+    { name:'Northline Records', logo:'' },
+    { name:'Delta Coffee Roasters', logo:'' },
+    { name:'Faraway Trails', logo:'' },
+    { name:'Verve Living', logo:'' },
+    { name:'Anchor & Co.', logo:'' },
+    { name:'Solstice Apparel', logo:'' }
+  ];
+
   // ---------- Video link → embed detection ----------
   function parseVideoEmbed(url){
     if (!url) return null;
@@ -860,6 +916,40 @@
     if (/instagram\.com\/(p|reel|tv)\//i.test(url)) return { type:'instagram', url };
     if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) return { type:'file', url };
     return { type:'link', url };
+  }
+
+  // ---------- Auto thumbnail + aspect ratio per platform ----------
+  // YouTube thumbnails follow a fixed public URL pattern — no network round-trip needed,
+  // and YouTube embeds are always 16:9.
+  function youTubeThumbnail(id){ return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+
+  // Vimeo has a public oEmbed endpoint that returns a real thumbnail plus the video's
+  // actual width/height, so cards size themselves to the real aspect ratio.
+  const vimeoMetaCache = new Map();
+  function fetchVimeoMeta(id){
+    if (vimeoMetaCache.has(id)) return vimeoMetaCache.get(id);
+    const p = fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent('https://vimeo.com/' + id)}`)
+      .then(r => { if (!r.ok) throw 0; return r.json(); })
+      .then(data => ({ thumbnail: data.thumbnail_url, width: data.width, height: data.height }))
+      .catch(() => null); // silently fall back to placeholder if Vimeo's endpoint is unreachable
+    vimeoMetaCache.set(id, p);
+    return p;
+  }
+
+  // Neither Facebook nor Instagram offer a public, no-login way to fetch a thumbnail —
+  // both now require an authenticated app token for oEmbed. For these, we rely on the
+  // admin's manually-uploaded thumbnail, falling back to a placeholder pattern otherwise.
+
+  // Sets a container's aspect-ratio from an <img>'s real dimensions once it loads —
+  // used for album covers so mixed portrait/landscape photos size themselves correctly.
+  function applyNaturalAspect(img, container){
+    const set = () => {
+      if (img.naturalWidth && img.naturalHeight){
+        container.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
+      }
+    };
+    if (img.complete && img.naturalWidth) set();
+    else img.addEventListener('load', set, { once: true });
   }
 
   let igScriptLoaded = false;
@@ -980,12 +1070,39 @@
       el.tabIndex = 0;
       el.setAttribute('role','button');
       el.setAttribute('aria-label', 'Play: ' + (r.title||'video'));
-      el.dataset.src = r.video || FALLBACK_VIDEOS[i % FALLBACK_VIDEOS.length];
+      const videoSrc = r.video || FALLBACK_VIDEOS[i % FALLBACK_VIDEOS.length];
+      el.dataset.src = videoSrc;
       el.dataset.title = r.title || '';
       el.dataset.cat = r.category || '';
       el.dataset.dur = r.duration || '';
 
-      el.appendChild(phDiv(i, r.poster));
+      const embed = parseVideoEmbed(videoSrc);
+
+      // Default aspect ratio by platform (used until/unless we can derive the real one).
+      let aspect = '16 / 9';
+      if (embed && embed.type === 'instagram' && !r.poster) aspect = '9 / 16'; // Reels skew vertical
+      el.style.aspectRatio = aspect;
+
+      let posterUrl = r.poster || null;
+      if (!posterUrl && embed && embed.type === 'youtube'){
+        posterUrl = youTubeThumbnail(embed.id); // instant, no fetch — YouTube embeds are always 16:9
+      }
+      el.appendChild(phDiv(i, posterUrl));
+
+      // Vimeo needs a lookup — show the placeholder immediately, then swap in the
+      // real thumbnail and true aspect ratio once it resolves.
+      if (!r.poster && embed && embed.type === 'vimeo'){
+        fetchVimeoMeta(embed.id).then((meta) => {
+          if (!meta) return;
+          if (meta.width && meta.height) el.style.aspectRatio = `${meta.width} / ${meta.height}`;
+          if (meta.thumbnail){
+            const oldPh = el.querySelector('.ph-block');
+            const img = phDiv(i, meta.thumbnail);
+            if (oldPh) el.replaceChild(img, oldPh); else el.insertBefore(img, el.firstChild);
+          }
+        });
+      }
+
       const scrim = document.createElement('div'); scrim.className = 'reel-scrim'; el.appendChild(scrim);
 
       const top = document.createElement('div'); top.className = 'reel-top';
@@ -1018,7 +1135,12 @@
       cats.map(c => `<button class="chip" data-filter="${esc(slug(c))}">${esc(c)}</button>`).join('');
 
     items.forEach((a, i) => {
-      const frames = (a.frames || []).map(f => ({ image: f.image || '', caption: f.caption || '' }));
+      // Supports two frame formats: a plain array of image URLs (the new bulk-upload
+      // friendly format) or the older [{image, caption}] objects, for back-compat with
+      // any albums already published before this change.
+      const frames = (a.frames || []).map(f =>
+        typeof f === 'string' ? { image: f, caption: '' } : { image: f.image || '', caption: f.caption || '' }
+      );
       const el = document.createElement('div');
       el.className = 'album reveal';
       el.tabIndex = 0;
@@ -1029,7 +1151,9 @@
       const catTag = document.createElement('span'); catTag.className = 'album-cat'; catTag.textContent = a.category || '';
       const countTag = document.createElement('span'); countTag.className = 'album-count'; countTag.textContent = frames.length ? frames.length + ' photos' : '';
       cover.appendChild(catTag); cover.appendChild(countTag);
-      cover.appendChild(phDiv(i, a.cover || (frames[0] && frames[0].image)));
+      const coverImg = phDiv(i, a.cover || (frames[0] && frames[0].image));
+      cover.appendChild(coverImg);
+      if (coverImg.tagName === 'IMG') applyNaturalAspect(coverImg, cover); // let real photos set their own aspect ratio
       el.appendChild(cover);
 
       const info = document.createElement('div'); info.className = 'album-info';
@@ -1101,6 +1225,21 @@
     });
   }
 
+  // ---------- Render: Brand marquee ----------
+  function renderBrands(items){
+    const track = document.getElementById('brandTrack');
+    const wrap = document.getElementById('brandStripWrap');
+    if (!items.length){ wrap.style.display = 'none'; return; }
+
+    const itemHTML = (b) => b.logo
+      ? `<div class="brand-item"><img src="${esc(b.logo)}" alt="${esc(b.name||'')}" loading="lazy" decoding="async"></div>`
+      : `<div class="brand-item"><span class="brand-word">${esc(b.name||'')}</span></div>`;
+
+    // The track is duplicated exactly once so translateX(-50%) loops seamlessly —
+    // the animation just slides through the first copy and resets invisibly onto the second.
+    track.innerHTML = items.map(itemHTML).join('') + items.map(itemHTML).join('');
+  }
+
   // ---------- Load content ----------
   fetch('content/reels.json').then(r => { if (!r.ok) throw 0; return r.json(); })
     .catch(() => ({ items: DEFAULT_REELS }))
@@ -1113,6 +1252,10 @@
   fetch('content/team.json').then(r => { if (!r.ok) throw 0; return r.json(); })
     .catch(() => ({ items: DEFAULT_TEAM }))
     .then(data => renderTeam(data.items && data.items.length ? data.items : DEFAULT_TEAM));
+
+  fetch('content/brands.json').then(r => { if (!r.ok) throw 0; return r.json(); })
+    .catch(() => ({ items: DEFAULT_BRANDS }))
+    .then(data => renderBrands(data.items && data.items.length ? data.items : DEFAULT_BRANDS));
 
   // ---------- Site text (headings, copy, footer) ----------
   function setText(id, value){
@@ -1135,6 +1278,7 @@
     setText('heroHeadingL2', h.heading_line2);
     setText('heroSubtext', h.subtext);
     setText('heroMeta', h.meta_line1);
+    setText('brandStripLabel', h.brand_strip_label);
 
     setText('reelsHeading', s.reels_heading);
     setText('reelsTag', s.reels_tag);
