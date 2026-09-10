@@ -20,48 +20,6 @@
       "tier": 1,
       "photo": "",
       "note": ""
-    },
-    {
-      "name": "Tanvir Ahmed",
-      "role": "Lead Cinematographer",
-      "tier": 2,
-      "photo": "",
-      "note": ""
-    },
-    {
-      "name": "Farah Islam",
-      "role": "Photo Editor & Colorist",
-      "tier": 2,
-      "photo": "",
-      "note": ""
-    },
-    {
-      "name": "Zoya Karim",
-      "role": "Video Editor & Sound",
-      "tier": 2,
-      "photo": "",
-      "note": ""
-    },
-    {
-      "name": "Imran Kabir",
-      "role": "Second Shooter",
-      "tier": 3,
-      "photo": "",
-      "note": ""
-    },
-    {
-      "name": "Priya Das",
-      "role": "Production Coordinator",
-      "tier": 3,
-      "photo": "",
-      "note": ""
-    },
-    {
-      "name": "Shuvo Rahman",
-      "role": "Studio Assistant",
-      "tier": 3,
-      "photo": "",
-      "note": ""
     }
   ]
 }
